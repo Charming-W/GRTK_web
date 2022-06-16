@@ -15,4 +15,12 @@ jobs:
       - run: pip install mkdocs-material mkdocs-video markdown-include
       - run: mkdocs gh-deploy --force
 
-
+# 发布到目标服务器
+      - name: Upload
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }} # 公网ip
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # 私钥
+          source: "/web/site" # 发送文件
+          target: "/www/wwwroot/www.blicube.com/GRTK" # 目标目录
